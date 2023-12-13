@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Inspeção_Empresarial.ViewModels.Inspection"
+             x:Class="Inspeção_Empresarial.Views.Inspection.ListPage"
+             xmlns:behaviors="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Title="ListPage">
+    <ContentPage.BindingContext>
+        <vm:ListPageViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid Padding="20" RowDefinitions="50, *">
+        <Entry Placeholder="Pesquisar..." Text="{Binding TextSearch}">
+            <Entry.Behaviors>
+                <behaviors:EventToCommandBehavior EventName="TextChanged" Command="{Binding SearchInspectionsCommand}" />
+            </Entry.Behaviors>
+        </Entry>
+        
+        <FlexLayout Grid.Row="1" Direction="Column" AlignItems="Center" JustifyContent="Center">
+            <Label Grid.Row="1" Text="Nenhum relatório foi encontrada" 
+                   FontSize="16" FontAttributes="Bold" 
+                   HorizontalOptions="Center" 
+                   VerticalOptions="Center"/>
+        
+            <Label Grid.Row="1" Text="Seus relatórios programadas aparecerão aqui." 
+                   FontSize="12" TextColor="{StaticResource Gray400}" 
+                   HorizontalOptions="Center" 
+                   VerticalOptions="Center"/>
+
+            <Label Grid.Row="1" Text="Clique no botão criar novo para começar." 
+                   FontSize="12" TextColor="{StaticResource Gray400}" 
+                   HorizontalOptions="Center" 
+                   VerticalOptions="Center"/>
+        </FlexLayout>
+        
+        <CollectionView Grid.Row="1" ItemsSource="{Binding CompanyListFilter}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Label Text="{Binding CorporateName}"/>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        
+        <Button Grid.Row="1" Text="Criar novo" Command="{Binding AddCompanyCommand}"
+                VerticalOptions="End"
+                ImageSource="plus_circle.png"/>
+    </Grid>
+</ContentPage>
