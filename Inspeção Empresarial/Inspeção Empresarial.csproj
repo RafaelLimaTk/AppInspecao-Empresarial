@@ -59,6 +59,7 @@
 	<ItemGroup>
 	  <None Remove="Resources\Images\document.svg" />
 	  <None Remove="Resources\Images\Plus_Circle.svg" />
+	  <None Remove="Resources\Images\search.svg" />
 	</ItemGroup>
 
 	<ItemGroup>

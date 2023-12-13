@@ -9,12 +9,20 @@
         <vm:ListPageViewModel />
     </ContentPage.BindingContext>
 
-    <Grid Padding="20" RowDefinitions="50, *">
-        <Entry Placeholder="Pesquisar..." Text="{Binding TextSearch}">
-            <Entry.Behaviors>
-                <behaviors:EventToCommandBehavior EventName="TextChanged" Command="{Binding SearchInspectionsCommand}" />
-            </Entry.Behaviors>
-        </Entry>
+    <Grid Padding="20" RowDefinitions="70, *">
+        <Border Margin="20, 20, 20, 0" StrokeShape="RoundRectangle 25" HeightRequest="50" Stroke="{StaticResource PrimaryDark}">
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+            </Border.GestureRecognizers>
+            <StackLayout Orientation="Horizontal">
+                <Image Source="search.png" VerticalOptions="Center" Margin="15, 0, 5, 0" WidthRequest="25" HeightRequest="25"/>
+                <Entry x:Name="Search" Placeholder="Pesquisar..." Text="{Binding TextSearch}">
+                    <Entry.Behaviors>
+                        <behaviors:EventToCommandBehavior EventName="TextChanged" Command="{Binding SearchInspectionsCommand}" />
+                    </Entry.Behaviors>
+                </Entry>
+            </StackLayout>
+        </Border>
         
         <FlexLayout Grid.Row="1" Direction="Column" AlignItems="Center" JustifyContent="Center">
             <Label Grid.Row="1" Text="Nenhum relatório foi encontrada" 
