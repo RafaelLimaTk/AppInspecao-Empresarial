@@ -19,7 +19,11 @@ public class CompanyRepository : ICompanyRepository
 
     public Company GetById(int id)
     {
-        return _context.Company.Find(id);
+        return _context.Company
+            .Include(c => c.Establishments)
+            .Include(c => c.ProcessDescriptions)
+            .Include(c => c.Responsibilities)
+            .FirstOrDefault(c => c.Id == id);
     }
 
     public void Add(Company company)

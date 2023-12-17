@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Inspeção_Empresarial.ViewModels.Inspection"
+             x:Class="Inspeção_Empresarial.Views.Inspection.DatailsPage"
+             xmlns:behaviors="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Title="Detalhes da Empresa">
+    <ContentPage.BindingContext>
+        <vm:DetailsViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout>
+            <Frame BackgroundColor="#2C2C2C" BorderColor="Transparent" CornerRadius="10" Margin="30, 0">
+                <Grid ColumnDefinitions="90,*" RowDefinitions="Auto" Padding="20">
+                    <Border BackgroundColor="{StaticResource Primary}" StrokeThickness="0"
+                            StrokeShape="RoundRectangle 50" WidthRequest="60" HeightRequest="60"
+                            HorizontalOptions="Center" VerticalOptions="Center">
+                        <Image Source="clipboard2_fill.png" Aspect="AspectFit" Margin="15, 15, 15, 15"/>
+                    </Border>
+                    <StackLayout Grid.Column="1" Orientation="Horizontal" VerticalOptions="Center">
+                        <StackLayout Orientation="Vertical">
+                            <Label Text="{Binding CompanyDetails.CorporateName}" VerticalOptions="Center" FontSize="20" FontAttributes="Bold"/>
+                            <StackLayout Orientation="Horizontal" Padding="0,3,0,0">
+                                <Image Source="geo_alt.png" WidthRequest="16"/>
+                                <Label Text="{Binding CompanyDetails.Address}" 
+                                   VerticalOptions="Center" 
+                                   FontSize="16" 
+                                   TextColor="{StaticResource Gray300}" 
+                                   Padding="2,0"/>
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
+                </Grid>
+            </Frame>
+            <VerticalStackLayout Padding="20" Spacing="15">
+
+                <BoxView BackgroundColor="{StaticResource Gray400}" HeightRequest="1" Margin="20, 0"/>
+
+                <HorizontalStackLayout Padding="20, 0">
+                    <Button Text="Editar o relatório" ImageSource="pencil.png" Background="Transparent"/>
+                </HorizontalStackLayout>
+
+                <BoxView BackgroundColor="{StaticResource Gray400}" HeightRequest="1" Margin="20, 0"/>
+
+                <HorizontalStackLayout Padding="20, 0">
+                    <Button Text="Imprimir o relatório" ImageSource="printer.png" Background="Transparent"/>
+                </HorizontalStackLayout>
+
+                <BoxView BackgroundColor="{StaticResource Gray400}" HeightRequest="1" Margin="20, 0"/>
+
+                <HorizontalStackLayout Padding="20, 0">
+                    <Button Text="Excluir" ImageSource="trash_datails.png" Background="Transparent" Command="{Binding RemoveCompanyCommand}"/>
+                </HorizontalStackLayout>
+
+                <BoxView BackgroundColor="{StaticResource Gray400}" HeightRequest="1" Margin="20,0,0,20"/>
+
+            </VerticalStackLayout>
+
+            <Border StrokeShape="RoundRectangle 5" Margin="30,0,30,20">
+                <VerticalStackLayout Padding="40">
+                    
+                    <HorizontalStackLayout>
+                        <Label Text="Detalhes" FontSize="20" FontAttributes="Bold" Margin="0,0,10,10"/>
+                        <Image Source="body_text.png" Margin="0,0,0,6"/>
+                    </HorizontalStackLayout>
+                    
+                    <Label Text="{Binding CompanyDetails.Introduction}"/>
+                    
+                    <Label Text="{Binding CompanyDetails.Objective}"/>
+
+                    <BoxView BackgroundColor="{StaticResource Gray400}" HeightRequest="1" Margin="0, 20"/>
+                    <Label Text="..." FontSize="30"  VerticalOptions="Center" HorizontalOptions="Center"/>
+                    
+                </VerticalStackLayout>
+            </Border>
+
+            <Border StrokeShape="RoundRectangle 5" Margin="30,0,30,20">
+                <VerticalStackLayout Padding="40">
+
+                    <HorizontalStackLayout>
+                        <Label Text="Estabelecimentos" FontSize="20" FontAttributes="Bold" Margin="0,0,10,10"/>
+                        <Image Source="buildings.png" Margin="0,0,0,6"/>
+                    </HorizontalStackLayout>
+
+                    <CollectionView ItemsSource="{Binding Establishments}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="10" ColumnDefinitions="*, *, *" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+                                    
+                                    <Label Grid.Row="0" Text="Local" FontSize="16" FontAttributes="Bold" />
+                                    <Label Grid.Row="1" Text="{Binding Location}" />
+
+                                    <Label Grid.Row="0" Grid.Column="1" Text="Endereço" FontSize="16" FontAttributes="Bold" />
+                                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding Address}" />
+
+                                    <Label Grid.Row="0" Grid.Column="2" Text="Telefone" FontSize="16" FontAttributes="Bold" />
+                                    <Label Grid.Row="1" Grid.Column="2" Text="{Binding Phone}" />
+
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <BoxView BackgroundColor="{StaticResource Gray400}" HeightRequest="1" Margin="0, 20"/>
+                    <Label Text="..." FontSize="30"  VerticalOptions="Center" HorizontalOptions="Center"/>
+
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

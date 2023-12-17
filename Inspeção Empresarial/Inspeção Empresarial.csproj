@@ -57,14 +57,27 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\body_text.svg" />
+	  <None Remove="Resources\Images\buildings.svg" />
+	  <None Remove="Resources\Images\caret_down_fill.svg" />
+	  <None Remove="Resources\Images\chevron_right.svg" />
+	  <None Remove="Resources\Images\clipboard2_fill.svg" />
 	  <None Remove="Resources\Images\document.svg" />
+	  <None Remove="Resources\Images\geo_alt.svg" />
+	  <None Remove="Resources\Images\pencil.svg" />
+	  <None Remove="Resources\Images\plus.svg" />
 	  <None Remove="Resources\Images\Plus_Circle.svg" />
+	  <None Remove="Resources\Images\printer.svg" />
+	  <None Remove="Resources\Images\save.svg" />
 	  <None Remove="Resources\Images\search.svg" />
+	  <None Remove="Resources\Images\trash.svg" />
+	  <None Remove="Resources\Images\trash_datails.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+		<PackageReference Include="FluentValidation" Version="11.8.1" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
@@ -72,7 +85,6 @@
 
 	<ItemGroup>
 	  <Folder Include="Models\" />
-	  <Folder Include="Libraries\" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -82,6 +94,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="Views\Inspection\CreateAndEditPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Inspection\DatailsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Inspection\ListPage.xaml">

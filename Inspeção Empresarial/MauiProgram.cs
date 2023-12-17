@@ -5,6 +5,7 @@ using Inspeção_Empresarial.Views.Inspection;
 using InspecaoEmpresarial.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.Maui.Hosting;
 
 namespace Inspeção_Empresarial
 {

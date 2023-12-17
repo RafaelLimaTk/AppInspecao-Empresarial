@@ -1,17 +1,264 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:vm="clr-namespace:Inspeção_Empresarial.ViewModels.Inspection"
              x:Class="Inspeção_Empresarial.Views.Inspection.CreateAndEditPage"
-             Title="CreateAndEditPage">
+             Title="Novo Relatório"
+             x:Name="CreateAndEditPageVM">
     <ContentPage.BindingContext>
         <vm:CreateAndEditPageViewModel />
     </ContentPage.BindingContext>
-    
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+
+    <ScrollView>
+        <Grid Padding="20" RowDefinitions="0, *, *, *, *, *, *">
+            <toolkit:Expander Grid.Row="1" Margin="0,20,0,0" IsExpanded="{Binding IsFirstExpanderOpen}" ExpandedChanged="OnExpanderExpandedChanged">
+                <toolkit:Expander.Header>
+                    <StackLayout Orientation="Horizontal">
+                        <Image x:Name="ArrowFirstImage" Source="caret_down_fill.png"
+                                Margin="0, 0, 5, 0"
+                                Rotation="{Binding ArrowRotationFirst}">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnFirstExpanderTapped" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                        <Label Text="Identificação da Empresa"
+                                FontAttributes="Bold"
+                                FontSize="Medium">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnFirstExpanderTapped" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+                </toolkit:Expander.Header>
+
+                <toolkit:Expander.Content>
+                    <Border StrokeShape="RoundRectangle 5" Stroke="{StaticResource PrimaryDark}" BackgroundColor="#2C2C2C" Padding="20" Margin="0,20,0,0">
+                        <Grid Grid.Row="1" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" 
+                              ColumnDefinitions="*,*" ColumnSpacing="10" RowSpacing="10">
+                            <Label Grid.Row="0" Grid.ColumnSpan="2" Text="Nome empresarial"/>
+                            <Border Grid.Row="1" Grid.ColumnSpan="2" StrokeShape="RoundRectangle 5">
+                                <Entry HorizontalOptions="FillAndExpand" Text="{Binding CorporateName}"/>
+                            </Border>
+                            <Label Grid.Row="2" Text="{Binding CorporateNameError}" 
+                                   IsVisible="{Binding CorporateNameError.Length, Converter={StaticResource StringIsNullOrWhiteSpaceConverter}, ConverterParameter=false}" 
+                                   TextColor="#FF6B6B"
+                                   Margin="0,-5,0,0"/>
+
+                            <Label Grid.Row="3" Grid.ColumnSpan="2" Text="Endereço"/>
+                            <Border Grid.Row="4" Grid.ColumnSpan="2" StrokeShape="RoundRectangle 5">
+                                <Entry HorizontalOptions="FillAndExpand" Text="{Binding AddressCompany}"/>
+                            </Border>
+
+                            <Label Grid.Row="5" Grid.Column="0" Text="CNPJ"/>
+                            <Border Grid.Row="6" Grid.Column="0" StrokeShape="RoundRectangle 5">
+                                <Entry HorizontalOptions="FillAndExpand" Text="{Binding Cnpj}"/>
+                            </Border>
+                            <Label Grid.Row="7" Grid.Column="0" Text="{Binding CnpjError}" 
+                                   IsVisible="{Binding CnpjError.Length, Converter={StaticResource StringIsNullOrWhiteSpaceConverter}, ConverterParameter=false}" 
+                                   TextColor="#FF6B6B"
+                                   Margin="0,-5,0,0"/>
+
+                            <Label Grid.Row="5" Grid.Column="1" Text="C.N.A.E"/>
+                            <Border Grid.Row="6" Grid.Column="1" StrokeShape="RoundRectangle 5">
+                                <Entry HorizontalOptions="FillAndExpand" Text="{Binding Cnae}"/>
+                            </Border>
+                            <Label Grid.Row="7" Grid.Column="1" Text="{Binding CnaeError}" 
+                                   IsVisible="{Binding CnaeError.Length, Converter={StaticResource StringIsNullOrWhiteSpaceConverter}, ConverterParameter=false}" 
+                                   TextColor="#FF6B6B"
+                                   Margin="0,-5,0,0"/>
+
+                            <Label Grid.Row="8" Grid.ColumnSpan="2" Text="Grau de Risco"/>
+                            <Border Grid.Row="9" Grid.ColumnSpan="2" StrokeShape="RoundRectangle 5">
+                                <Entry HorizontalOptions="FillAndExpand" Text="{Binding Riskgrade}"/>
+                            </Border>
+
+                            <Label Grid.Row="10" Grid.ColumnSpan="2" Text="Introdução"/>
+                            <Border Grid.Row="11" Grid.ColumnSpan="2" StrokeShape="RoundRectangle 5" HeightRequest="200">
+                                <Editor HorizontalOptions="FillAndExpand" Text="{Binding Introduction}"/>
+                            </Border>
+
+                            <Label Grid.Row="12" Grid.ColumnSpan="2" Text="Observação"/>
+                            <Border Grid.Row="13" Grid.ColumnSpan="2" StrokeShape="RoundRectangle 5" HeightRequest="200">
+                                <Editor HorizontalOptions="FillAndExpand" Text="{Binding Objective}"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+                </toolkit:Expander.Content>
+            </toolkit:Expander>
+
+            <toolkit:Expander Grid.Row="2" Margin="0,20,0,0" IsExpanded="{Binding IsThirdExpanderOpen}" ExpandedChanged="OnExpanderExpandedChanged">
+                <toolkit:Expander.Header>
+                    <StackLayout Orientation="Horizontal">
+                        <Image x:Name="ArrowThirdImage" Source="caret_down_fill.png"
+                                Margin="0, 0, 5, 0"
+                                Rotation="{Binding ArrowRotationThird}">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnThirdExpanderTapped" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                        <Label Text="Responsabilidades"
+                                FontAttributes="Bold"
+                                FontSize="Medium">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnThirdExpanderTapped" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+                </toolkit:Expander.Header>
+
+                <toolkit:Expander.Content>
+                    <Border StrokeShape="RoundRectangle 5" Stroke="{StaticResource PrimaryDark}" BackgroundColor="#2C2C2C" Padding="20" Margin="0,20,0,0">
+                        <Grid Grid.Row="1" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" 
+                                ColumnDefinitions="*,*" ColumnSpacing="10" RowSpacing="10">
+
+                            <Label Grid.Row="0" Grid.ColumnSpan="2" Text="Superintendência e diretorias vinculadas à unidade"/>
+                            <Border Grid.Row="1" Grid.ColumnSpan="2" StrokeShape="RoundRectangle 5" HeightRequest="200">
+                                <Editor HorizontalOptions="FillAndExpand" Text="{Binding SuperintendencyDiretorias}"/>
+                            </Border>
+
+                            <Label Grid.Row="2" Grid.ColumnSpan="2" Text="Gerentes"/>
+                            <Border Grid.Row="3" Grid.ColumnSpan="2" StrokeShape="RoundRectangle 5" HeightRequest="200">
+                                <Editor HorizontalOptions="FillAndExpand" Text="{Binding Manager}"/>
+                            </Border>
+
+                            <Label Grid.Row="4" Grid.ColumnSpan="2" Text="Encarregados e líderes"/>
+                            <Border Grid.Row="5" Grid.ColumnSpan="2" StrokeShape="RoundRectangle 5" HeightRequest="200">
+                                <Editor HorizontalOptions="FillAndExpand" Text="{Binding SuperintendencyDiretorias}"/>
+                            </Border>
+
+                            <Label Grid.Row="6" Grid.ColumnSpan="2" Text="SESMT"/>
+                            <Border Grid.Row="7" Grid.ColumnSpan="2" StrokeShape="RoundRectangle 5" HeightRequest="200">
+                                <Editor HorizontalOptions="FillAndExpand" Text="{Binding Sesmt}"/>
+                            </Border>
+                            
+                            <Label Grid.Row="8" Grid.ColumnSpan="2" Text="Cipa e brigada de incêndio"/>
+                            <Border Grid.Row="9" Grid.ColumnSpan="2" StrokeShape="RoundRectangle 5" HeightRequest="200">
+                                <Editor HorizontalOptions="FillAndExpand" Text="{Binding Brigade}"/>
+                            </Border>
+
+                            <Label Grid.Row="10" Grid.ColumnSpan="2" Text="Empregados"/>
+                            <Border Grid.Row="11" Grid.ColumnSpan="2" StrokeShape="RoundRectangle 5" HeightRequest="200">
+                                <Editor HorizontalOptions="FillAndExpand" Text="{Binding Employees}"/>
+                            </Border>
+                            
+                        </Grid>
+                    </Border>
+                </toolkit:Expander.Content>
+            </toolkit:Expander>
+
+            <toolkit:Expander Grid.Row="3" Margin="0,20,0,0" IsExpanded="{Binding IsFourthExpanderOpen}" ExpandedChanged="OnExpanderExpandedChanged">
+                <toolkit:Expander.Header>
+                    <StackLayout Orientation="Horizontal">
+                        <Image x:Name="ArrowFourthImage" Source="caret_down_fill.png"
+                    Margin="0, 0, 5, 0"
+                    Rotation="{Binding ArrowRotationFourth}">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnFourthExpanderTapped" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                        <Label Text="Descrição do Processo"
+                    FontAttributes="Bold"
+                    FontSize="Medium">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnFourthExpanderTapped" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+                </toolkit:Expander.Header>
+
+                <toolkit:Expander.Content>
+                    <Border StrokeShape="RoundRectangle 5" Stroke="{StaticResource PrimaryDark}" BackgroundColor="#2C2C2C" Padding="20" Margin="0,20,0,0">
+                        <Grid Grid.Row="1" RowDefinitions="Auto,Auto,Auto,Auto,Auto" 
+                                ColumnDefinitions="*,*" ColumnSpacing="10" RowSpacing="10">
+                            
+                            <Label Grid.Row="0" Grid.ColumnSpan="2" Text="Departamento"/>
+                            <Border Grid.Row="1" Grid.ColumnSpan="2" StrokeShape="RoundRectangle 5">
+                                <Entry HorizontalOptions="FillAndExpand" Text="{Binding Department}"/>
+                            </Border> 
+
+                            <Label Grid.Row="2" Grid.ColumnSpan="2" Text="Atividade"/>
+                            <Border Grid.Row="3" Grid.ColumnSpan="2" StrokeShape="RoundRectangle 5" HeightRequest="200">
+                                <Editor HorizontalOptions="FillAndExpand" Text="{Binding Activity}"/>
+                            </Border>
+
+                        </Grid>
+                    </Border>
+                </toolkit:Expander.Content>
+            </toolkit:Expander>
+
+            <toolkit:Expander Grid.Row="4" Margin="0,20,0,0" IsExpanded="{Binding IsSecondExpanderOpen}" ExpandedChanged="OnExpanderExpandedChanged">
+                <toolkit:Expander.Header>
+                    <StackLayout Orientation="Horizontal">
+                        <Image x:Name="ArrowSecondImage" Source="caret_down_fill.png"
+                               Margin="0, 0, 5, 0"
+                               Rotation="{Binding ArrowRotationSecond}">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnSecondExpanderTapped" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                        <Label Text="Identificação do Estabelecimento"
+                               FontAttributes="Bold"
+                               FontSize="Medium">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnSecondExpanderTapped" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+                </toolkit:Expander.Header>
+                <toolkit:Expander.Content>
+                    <Border StrokeShape="RoundRectangle 5" Stroke="{StaticResource PrimaryDark}" BackgroundColor="#2C2C2C" Padding="20" Margin="0,20,0,0">
+                        <Grid Grid.Row="2" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="*,*" ColumnSpacing="10" RowSpacing="10">
+                            <Button Grid.Row="0" Grid.Column="1" 
+                                    HorizontalOptions="End" 
+                                    Text="Adicionar Estabelecimento"
+                                    ImageSource="plus.png"
+                                    Command="{Binding SaveEstablishmentCommand}" />
+
+                            <Label Grid.Row="1" Grid.ColumnSpan="2" Text="Local"/>
+                            <Border Grid.Row="2" Grid.ColumnSpan="2" StrokeShape="RoundRectangle 5">
+                                <Entry HorizontalOptions="FillAndExpand" Text="{Binding EstablishmentViewModel.Location}"/>
+                            </Border>
+
+                            <Label Grid.Row="3" Grid.ColumnSpan="2" Text="Endereço"/>
+                            <Border Grid.Row="4" Grid.ColumnSpan="2" StrokeShape="RoundRectangle 5">
+                                <Entry HorizontalOptions="FillAndExpand" Text="{Binding EstablishmentViewModel.Address}"/>
+                            </Border>
+
+                            <Label Grid.Row="5" Grid.ColumnSpan="2" Text="Telefone"/>
+                            <Border Grid.Row="6" Grid.ColumnSpan="2" StrokeShape="RoundRectangle 5">
+                                <Entry HorizontalOptions="FillAndExpand" Text="{Binding EstablishmentViewModel.Phone}"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+                </toolkit:Expander.Content>
+            </toolkit:Expander>
+            <CollectionView Grid.Row="5"
+                ItemsSource="{Binding Establishments}" Margin="0, 20">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10" ColumnDefinitions="*, Auto">
+                            <Label Grid.Column="0"
+                            Text="{Binding Location}"
+                            VerticalOptions="Center" />
+
+                            <ImageButton Grid.Column="1"
+                                Background="Transparent"
+                                WidthRequest="16"
+                                Source="trash.png"
+                                Command="{Binding BindingContext.DeleteEstablishmentCommand, Source={x:Reference CreateAndEditPageVM}}"
+                                CommandParameter="{Binding .}"
+                                VerticalOptions="Center" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Button Grid.Row="6" Text="Salvar" 
+                    Margin="0,20,0,0" 
+                    HeightRequest="50" 
+                    ImageSource="save.png"
+                    Command="{Binding SaveCompanyCommand}"/>
+        </Grid>
+    </ScrollView>
 </ContentPage>

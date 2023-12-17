@@ -2,6 +2,7 @@
 using InspecaoEmpresarial.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InspecaoEmpresarial.Infra.Data.Migrations
 {
     [DbContext(typeof(InspecaoEmpresarialContext))]
-    partial class InspecaoEmpresarialContextModelSnapshot : ModelSnapshot
+    [Migration("20231214185610_Insert_In_Company_New_Column_Relation")]
+    partial class Insert_In_Company_New_Column_Relation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
