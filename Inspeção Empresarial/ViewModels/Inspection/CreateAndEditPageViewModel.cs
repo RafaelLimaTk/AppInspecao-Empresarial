@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using FluentValidation.Results;
 using Inspeção_Empresarial.Libraries.Messages;
 using Inspeção_Empresarial.Repositories;
 using Inspeção_Empresarial.Validation;
@@ -164,25 +165,7 @@ public partial class CreateAndEditPageViewModel : ObservableObject
         }
         else
         {
-            CorporateNameError = string.Empty;
-            CnaeError = string.Empty;
-            CnpjError = string.Empty;
-
-            foreach (var failure in validationResult.Errors)
-            {
-                switch (failure.PropertyName)
-                {
-                    case nameof(Company.CorporateName):
-                        CorporateNameError = failure.ErrorMessage;
-                        break;
-                    case nameof(Company.CNAE):
-                        CnaeError = failure.ErrorMessage;
-                        break;
-                    case nameof(Company.CNPJ):
-                        CnpjError = failure.ErrorMessage;
-                        break;
-                }
-            }
+            UpdateValidationErrors(validationResult);
         }
     }
 
@@ -195,6 +178,29 @@ public partial class CreateAndEditPageViewModel : ObservableObject
         Company.RiskGrade = Riskgrade;
         Company.Introduction = Introduction;
         Company.Objective = Objective;
+    }
+
+    private void UpdateValidationErrors(ValidationResult validationResult)
+    {
+        CorporateNameError = string.Empty;
+        CnaeError = string.Empty;
+        CnpjError = string.Empty;
+
+        foreach (var failure in validationResult.Errors)
+        {
+            switch (failure.PropertyName)
+            {
+                case nameof(Company.CorporateName):
+                    CorporateNameError = failure.ErrorMessage;
+                    break;
+                case nameof(Company.CNAE):
+                    CnaeError = failure.ErrorMessage;
+                    break;
+                case nameof(Company.CNPJ):
+                    CnpjError = failure.ErrorMessage;
+                    break;
+            }
+        }
     }
 
     public void SaveCompanyToDatabase(Company company)
