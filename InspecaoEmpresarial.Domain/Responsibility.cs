@@ -14,4 +14,23 @@ public class Responsibility
 
     public int CompanyId { get; set; }
     public Company? Company { get; set; }
+
+    public Responsibility(string? superintendence, string? management, 
+                        string? inCharge, string? smt, string? fireBrigade, 
+                        string? employees, int companyId, Company company)
+    {
+        Superintendence = superintendence;
+        Management = management;
+        InCharge = inCharge;
+        SMT = smt;
+        FireBrigade = fireBrigade;
+        Employees = employees;
+        CompanyId = companyId;
+        Company = company;
+    }
+
+    public Responsibility()
+    {
+        
+    }
 }

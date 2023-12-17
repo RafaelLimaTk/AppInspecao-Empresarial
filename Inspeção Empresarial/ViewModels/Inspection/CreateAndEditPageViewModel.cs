@@ -132,17 +132,9 @@ public partial class CreateAndEditPageViewModel : ObservableObject
     [RelayCommand]
     public void SaveEstablishment()
     {
-        var newEstablishment = new Establishment
-        {
-            Location = EstablishmentViewModel.Location,
-            Address = EstablishmentViewModel.Address,
-            Phone = EstablishmentViewModel.Phone,
-            CompanyId = Company.Id,
-            Company = Company
-        };
+        var newEstablishment = new Establishment(EstablishmentViewModel.Location, EstablishmentViewModel.Address, EstablishmentViewModel.Phone, Company.Id, Company);
 
         Establishments.Add(EstablishmentViewModel);
-
         Company.Establishments.Add(newEstablishment);
 
         EstablishmentViewModel = new EstablishmentViewModel();
@@ -152,31 +144,13 @@ public partial class CreateAndEditPageViewModel : ObservableObject
         Phone = string.Empty;
     }
 
-    // Melhorar esse metodo
     [RelayCommand]
     public async Task SaveCompany()
     {
-        var newResponsibility = new Responsibility
-        {
-            Superintendence = SuperintendencyDiretorias,
-            Management = Manager,
-            InCharge = Supervisors,
-            SMT = Sesmt,
-            Employees = Employees,
-            FireBrigade = Brigade,
-            CompanyId = Company.Id,
-            Company = Company
-        };
+        var newResponsibility = new Responsibility(SuperintendencyDiretorias, Manager, Supervisors, Sesmt, Brigade, Employees, Company.Id, Company);
+        var newProcessDescription = new ProcessDescription(Department, Activity, Company.Id, Company);
 
-        var newProcessDescription = new ProcessDescription
-        {
-            Department = Department,
-            Activity = Activity,
-            CompanyId = Company.Id,
-            Company = Company
-        };
-
-        UpdateCompanyEntity();
+        CreateCompany();
 
         Company.ProcessDescriptions.Add(newProcessDescription);
         Company.Responsibilities.Add(newResponsibility);
@@ -212,7 +186,7 @@ public partial class CreateAndEditPageViewModel : ObservableObject
         }
     }
 
-    private void UpdateCompanyEntity()
+    private void CreateCompany()
     {
         Company.CorporateName = CorporateName;
         Company.Address = AddressCompany;
@@ -222,7 +196,6 @@ public partial class CreateAndEditPageViewModel : ObservableObject
         Company.Introduction = Introduction;
         Company.Objective = Objective;
     }
-
 
     public void SaveCompanyToDatabase(Company company)
     {
