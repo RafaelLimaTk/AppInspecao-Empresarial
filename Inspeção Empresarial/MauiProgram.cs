@@ -1,11 +1,6 @@
 ﻿using CommunityToolkit.Maui;
 using Inspeção_Empresarial.Repositories;
-using Inspeção_Empresarial.ViewModels.Inspection;
-using Inspeção_Empresarial.Views.Inspection;
-using InspecaoEmpresarial.Infra.Data;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Microsoft.Maui.Hosting;
 
 namespace Inspeção_Empresarial
 {
@@ -17,8 +12,8 @@ namespace Inspeção_Empresarial
 
             builder.Services.AddSingleton<ICompanyRepository, CompanyRepository>();
             builder.Services.AddSingleton<IEstablishmentRepository, EstablishmentRepository>();
-            builder.Services.AddSingleton<IProcessDescriptionRepository, ProcessDescriptionRepository>();
             builder.Services.AddSingleton<IResponsibilityRepository, ResponsibilityRepository>();
+            builder.Services.AddSingleton<IProcessDescriptionRepository, ProcessDescriptionRepository>();
 
             builder
                 .UseMauiApp<App>()

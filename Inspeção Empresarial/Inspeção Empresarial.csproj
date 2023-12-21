@@ -61,6 +61,7 @@
 	  <None Remove="Resources\Images\buildings.svg" />
 	  <None Remove="Resources\Images\caret_down_fill.svg" />
 	  <None Remove="Resources\Images\chevron_right.svg" />
+	  <None Remove="Resources\Images\clipboard2_check.svg" />
 	  <None Remove="Resources\Images\clipboard2_fill.svg" />
 	  <None Remove="Resources\Images\document.svg" />
 	  <None Remove="Resources\Images\geo_alt.svg" />

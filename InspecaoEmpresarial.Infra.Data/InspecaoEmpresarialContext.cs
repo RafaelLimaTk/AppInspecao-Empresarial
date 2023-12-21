@@ -25,6 +25,5 @@ public class InspecaoEmpresarialContext : DbContext
 
         optionsBuilder.UseSqlite($"Filename={databasePath}");
         Console.WriteLine(databasePath);
-
     }
 }

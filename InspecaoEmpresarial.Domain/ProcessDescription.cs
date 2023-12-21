@@ -9,6 +9,7 @@ public class ProcessDescription
     public int CompanyId { get; set; }
     public Company? Company { get; set; }
 
+    public ProcessDescription() { }
     public ProcessDescription(string? department, string? activity, int companyId, Company company)
     {
         Department = department;
@@ -17,8 +18,9 @@ public class ProcessDescription
         Company = company;
     }
 
-    public ProcessDescription()
+    public void UpdateDetailsProcessDescription(string activity, string department)
     {
-        
+        Activity = activity;
+        Department = department;
     }
 }
