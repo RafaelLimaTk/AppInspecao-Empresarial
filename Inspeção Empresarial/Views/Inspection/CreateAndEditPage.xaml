@@ -52,7 +52,11 @@
 
                             <Label Grid.Row="5" Grid.Column="0" Text="CNPJ"/>
                             <Border Grid.Row="6" Grid.Column="0" StrokeShape="RoundRectangle 5">
-                                <Entry HorizontalOptions="FillAndExpand" Text="{Binding Cnpj}"/>
+                                <Entry HorizontalOptions="FillAndExpand" Text="{Binding Cnpj}">
+                                    <Entry.Behaviors>
+                                        <toolkit:MaskedBehavior Mask="XX.XXX.XXX/XXXX-XX" />
+                                    </Entry.Behaviors>
+                                </Entry>
                             </Border>
                             <Label Grid.Row="7" Grid.Column="0" Text="{Binding CnpjError}" 
                                    IsVisible="{Binding CnpjError.Length, Converter={StaticResource StringIsNullOrWhiteSpaceConverter}, ConverterParameter=false}" 
@@ -61,7 +65,11 @@
 
                             <Label Grid.Row="5" Grid.Column="1" Text="C.N.A.E"/>
                             <Border Grid.Row="6" Grid.Column="1" StrokeShape="RoundRectangle 5">
-                                <Entry HorizontalOptions="FillAndExpand" Text="{Binding Cnae}"/>
+                                <Entry HorizontalOptions="FillAndExpand" Text="{Binding Cnae}">
+                                    <Entry.Behaviors>
+                                        <toolkit:MaskedBehavior Mask="XXXX-X/XX" />
+                                    </Entry.Behaviors>
+                                </Entry>
                             </Border>
                             <Label Grid.Row="7" Grid.Column="1" Text="{Binding CnaeError}" 
                                    IsVisible="{Binding CnaeError.Length, Converter={StaticResource StringIsNullOrWhiteSpaceConverter}, ConverterParameter=false}" 
@@ -124,7 +132,7 @@
 
                             <Label Grid.Row="4" Grid.ColumnSpan="2" Text="Encarregados e líderes"/>
                             <Border Grid.Row="5" Grid.ColumnSpan="2" StrokeShape="RoundRectangle 5" HeightRequest="200">
-                                <Editor HorizontalOptions="FillAndExpand" Text="{Binding SuperintendencyDiretorias}"/>
+                                <Editor HorizontalOptions="FillAndExpand" Text="{Binding Supervisors}"/>
                             </Border>
 
                             <Label Grid.Row="6" Grid.ColumnSpan="2" Text="SESMT"/>
@@ -227,7 +235,11 @@
 
                             <Label Grid.Row="5" Grid.ColumnSpan="2" Text="Telefone"/>
                             <Border Grid.Row="6" Grid.ColumnSpan="2" StrokeShape="RoundRectangle 5">
-                                <Entry HorizontalOptions="FillAndExpand" Text="{Binding EstablishmentViewModel.Phone}"/>
+                                <Entry HorizontalOptions="FillAndExpand" Text="{Binding EstablishmentViewModel.Phone}">
+                                    <Entry.Behaviors>
+                                        <toolkit:MaskedBehavior Mask="(XX) XXXXX-XXXX" />
+                                    </Entry.Behaviors>
+                                </Entry>
                             </Border>
                         </Grid>
                     </Border>

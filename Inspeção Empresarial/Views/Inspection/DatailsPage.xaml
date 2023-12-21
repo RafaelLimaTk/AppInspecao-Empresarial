@@ -38,7 +38,7 @@
                 <BoxView BackgroundColor="{StaticResource Gray400}" HeightRequest="1" Margin="20, 0"/>
 
                 <HorizontalStackLayout Padding="20, 0">
-                    <Button Text="Editar o relatório" ImageSource="pencil.png" Background="Transparent"/>
+                    <Button Text="Editar o relatório" ImageSource="pencil.png" Background="Transparent" Command="{Binding UpdateCompanyCommand}"/>
                 </HorizontalStackLayout>
 
                 <BoxView BackgroundColor="{StaticResource Gray400}" HeightRequest="1" Margin="20, 0"/>
@@ -53,7 +53,7 @@
                     <Button Text="Excluir" ImageSource="trash_datails.png" Background="Transparent" Command="{Binding RemoveCompanyCommand}"/>
                 </HorizontalStackLayout>
 
-                <BoxView BackgroundColor="{StaticResource Gray400}" HeightRequest="1" Margin="20,0,0,20"/>
+                <BoxView BackgroundColor="{StaticResource Gray400}" HeightRequest="1" Margin="20,0,20,20"/>
 
             </VerticalStackLayout>
 
@@ -72,6 +72,48 @@
                     <BoxView BackgroundColor="{StaticResource Gray400}" HeightRequest="1" Margin="0, 20"/>
                     <Label Text="..." FontSize="30"  VerticalOptions="Center" HorizontalOptions="Center"/>
                     
+                </VerticalStackLayout>
+            </Border>
+
+            <Border StrokeShape="RoundRectangle 5" Margin="30,0,30,20">
+                <VerticalStackLayout Padding="40">
+
+                    <HorizontalStackLayout>
+                        <Label Text="Responsabilidade" FontSize="20" FontAttributes="Bold" Margin="0,0,10,10"/>
+                        <Image Source="clipboard2_check.png" Margin="0,0,0,6"/>
+                    </HorizontalStackLayout>
+
+                    <CollectionView ItemsSource="{Binding Responsibilities}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="10" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+
+                                    <Label Grid.Row="0" Text="Superintedência e diretória" FontSize="16" FontAttributes="Bold" />
+                                    <Label Grid.Row="1" Text="{Binding Superintendence}" Margin="0,10,0,20"/>
+
+                                    <Label Grid.Row="2" Text="Gerentes" FontSize="16" FontAttributes="Bold" />
+                                    <Label Grid.Row="3" Text="{Binding Management}" Margin="0,10,0,20"/>
+
+                                    <Label Grid.Row="4" Text="Encarregados e líderes" FontSize="16" FontAttributes="Bold" />
+                                    <Label Grid.Row="5" Text="{Binding InCharge}" Margin="0,10,0,20"/>
+
+                                    <Label Grid.Row="6" Text="SESMT" FontSize="16" FontAttributes="Bold" />
+                                    <Label Grid.Row="7" Text="{Binding SMT}" Margin="0,10,0,20"/>
+
+                                    <Label Grid.Row="8" Text="Cipa e brigada" FontSize="16" FontAttributes="Bold" />
+                                    <Label Grid.Row="9" Text="{Binding FireBrigade}" Margin="0,10,0,20"/>
+
+                                    <Label Grid.Row="10" Text="Empregados" FontSize="16" FontAttributes="Bold" />
+                                    <Label Grid.Row="11" Text="{Binding Employees}" Margin="0,10,0,20"/>
+
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <BoxView BackgroundColor="{StaticResource Gray400}" HeightRequest="1" Margin="0, 20"/>
+                    <Label Text="..." FontSize="30"  VerticalOptions="Center" HorizontalOptions="Center"/>
+
                 </VerticalStackLayout>
             </Border>
 

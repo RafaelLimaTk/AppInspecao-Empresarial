@@ -9,4 +9,18 @@ public class Establishment
 
     public int CompanyId { get; set; }
     public Company? Company { get; set; }
+
+    public Establishment(string? location,  string? address, string? phone, int companyId, Company? company)
+    {
+        Location = location;
+        Address = address;
+        Phone = phone;
+        CompanyId = companyId;
+        Company = company;
+    }
+
+    public Establishment()
+    {
+        
+    }
 }

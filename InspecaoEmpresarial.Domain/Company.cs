@@ -17,4 +17,15 @@ public class Company
     public List<Responsibility>? Responsibilities { get; set; } = new List<Responsibility>();
     public List<ProcessDescription>? ProcessDescriptions { get; set; } = new List<ProcessDescription>();
 
+    public void CreateCompany(string corporateName, string addressCompany, string cnpj, string cnae, string riskgrade, string introduction, string objective)
+    {
+        CorporateName = corporateName;
+        Address = addressCompany;
+        CNPJ = cnpj;
+        CNAE = cnae;
+        RiskGrade = riskgrade;
+        Introduction = introduction;
+        Objective = objective;
+    }
+
 }

@@ -5,7 +5,6 @@ using Inspeção_Empresarial.Libraries.Messages;
 using Inspeção_Empresarial.Repositories;
 using InspecaoEmpresarial.Domain;
 using System.Collections.ObjectModel;
-using System.ComponentModel.Design;
 
 namespace Inspeção_Empresarial.ViewModels.Inspection;
 
@@ -21,6 +20,9 @@ public partial class DetailsViewModel : ObservableObject
     [ObservableProperty]
     private ObservableCollection<Establishment> establishments;
 
+    [ObservableProperty]
+    private ObservableCollection<Responsibility> responsibilities;
+
     private readonly ICompanyRepository _companyRepository;
     public DetailsViewModel()
     {
@@ -35,27 +37,44 @@ public partial class DetailsViewModel : ObservableObject
     private void LoadCompanyDetails(string id)
     {
         CompanyDetails = _companyRepository.GetById(int.Parse(id));
-        Establishments = new ObservableCollection<Establishment>();
 
-        Establishments.Clear();
-
-        foreach (var item in CompanyDetails.Establishments)
+        Establishments = new ObservableCollection<Establishment>(
+        CompanyDetails.Establishments.Select(item => new Establishment
         {
-            Establishments.Add(new Establishment
-            {
-                Location = item.Location,
-                Address = item.Address,
-                Phone = item.Phone
-            });
-        }
+            Location = item.Location,
+            Address = item.Address,
+            Phone = item.Phone
+        }));
+
+        Responsibilities = new ObservableCollection<Responsibility>(
+        CompanyDetails.Responsibilities.Select(item => new Responsibility
+        {
+            Superintendence = item.Superintendence,
+            Management = item.Management,
+            InCharge = item.InCharge,
+            SMT = item.SMT,
+            FireBrigade = item.FireBrigade,
+            Employees = item.Employees
+        }));
     }
 
-    //Melhorar esse metodo
     [RelayCommand]
     private async Task RemoveCompany()
     {
-        _companyRepository.Delete(CompanyDetails);
-        await Shell.Current.GoToAsync("//inspection");
-        WeakReferenceMessenger.Default.Send(new CompanySavedMessage(CompanyDetails));
+        var currentPage = Shell.Current.CurrentPage;
+        bool isConfirmed = await currentPage.DisplayAlert("Confirmação de exclusão",
+            $"Tem certeza que deseja excluir permanentemente o relatório da empresa {CompanyDetails.CorporateName}? Esta ação não pode ser desfeita.", "Excluir", "Cancelar");
+        if (isConfirmed)
+        {
+            _companyRepository.Delete(CompanyDetails);
+            await Shell.Current.GoToAsync("//inspection");
+            WeakReferenceMessenger.Default.Send(new CompanySavedMessage(CompanyDetails));
+        }
+    }
+
+    [RelayCommand]
+    private async Task UpdateCompany()
+    {
+        await Shell.Current.GoToAsync($"create?companyId={CompanyId}");
     }
 }
