@@ -95,36 +95,62 @@ public partial class DetailsViewModel : ObservableObject
             document.MarginBottom = 2 * cmToPoints;
             document.MarginRight = 2 * cmToPoints;
 
-            var titleFormat = new Formatting();
-            titleFormat.Size = 14D;
-            titleFormat.Bold = true;
-
-            Paragraph titleParagraph = document.InsertParagraph("1. IDENTIFICAÇÃO DA EMPRESA", false, titleFormat).Font("Arial");
-            document.InsertParagraph("");
-
-            titleParagraph.Highlight(Highlight.lightGray);
+            AdicionarTituloABNT(document, "1. IDENTIFICAÇÃO DA EMPRESA");
 
             Table table = document.AddTable(5, 1);
             table.Design = TableDesign.None;
 
-            table.Rows[0].Cells[0].Paragraphs.First().Append($"NOME EMPRESARIAL: {companyDetails.CorporateName}").FontSize(11).Font("Arial");
-            table.Rows[1].Cells[0].Paragraphs.First().Append($"ENDEREÇO: {companyDetails.Address}").FontSize(11).Font("Arial");
-            table.Rows[2].Cells[0].Paragraphs.First().Append($"CNPJ: {companyDetails.CNPJ}").FontSize(11).Font("Arial");
-            table.Rows[3].Cells[0].Paragraphs.First().Append($"C.N.A.E.: {companyDetails.CNAE}").FontSize(11).Font("Arial");
-            table.Rows[4].Cells[0].Paragraphs.First().Append($"GRAU DE RISCO: {companyDetails.RiskGrade}").FontSize(11).Font("Arial");
+            table.Rows[0].Cells[0].Paragraphs.First().Append($"NOME EMPRESARIAL: {companyDetails.CorporateName}").FontSize(12).Font("Arial");
+            table.Rows[1].Cells[0].Paragraphs.First().Append($"ENDEREÇO: {companyDetails.Address}").FontSize(12).Font("Arial");
+            table.Rows[2].Cells[0].Paragraphs.First().Append($"CNPJ: {companyDetails.CNPJ}").FontSize(12).Font("Arial");
+            table.Rows[3].Cells[0].Paragraphs.First().Append($"C.N.A.E.: {companyDetails.CNAE}").FontSize(12).Font("Arial");
+            table.Rows[4].Cells[0].Paragraphs.First().Append($"GRAU DE RISCO: {companyDetails.RiskGrade}").FontSize(12).Font("Arial");
 
             foreach (var row in table.Rows)
             {
                 foreach (var cell in row.Cells)
                 {
-                    cell.Paragraphs.First().LineSpacingAfter = 10; 
-                    cell.Paragraphs.First().SpacingAfter(5); 
+                    cell.Paragraphs.First().LineSpacing = 18.0f;
                 }
             }
 
             document.InsertTable(table);
+            document.InsertParagraph("");
+
+            AdicionarTituloABNT(document, "2. INTRODUÇÃO");
+            AdicionarIntroducaoEObjetivoABNT(document, companyDetails.Introduction);
+
+            AdicionarTituloABNT(document, "3. OBJETIVO");
+            AdicionarIntroducaoEObjetivoABNT(document, companyDetails.Objective);
 
             document.Save();
         }
+    }
+
+    private void AdicionarTituloABNT(DocX document, string titulo)
+    {
+        var titleFormat = new Formatting();
+        titleFormat.FontFamily = new Xceed.Document.NET.Font("Arial");
+        titleFormat.Size = 14D;
+        titleFormat.Bold = true;
+
+        Paragraph titleParagraph = document.InsertParagraph(titulo, false, titleFormat);
+        titleParagraph.Highlight(Highlight.lightGray);
+
+        document.InsertParagraph("");
+    }
+
+    private void AdicionarIntroducaoEObjetivoABNT(DocX document, string textoIntroducao)
+    {
+        var formatting = new Formatting();
+        formatting.FontFamily = new Xceed.Document.NET.Font("Arial");
+        formatting.Size = 12D;
+
+        Paragraph paragraph = document.InsertParagraph(textoIntroducao, false, formatting);
+        paragraph.Alignment = Alignment.both;
+        paragraph.LineSpacing = 18.0f;
+        paragraph.IndentationFirstLine = Convert.ToInt32(1.27 * 28.35);
+
+        document.InsertParagraph("");
     }
 }
