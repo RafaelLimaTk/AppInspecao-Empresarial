@@ -44,7 +44,7 @@
                 <BoxView BackgroundColor="{StaticResource Gray400}" HeightRequest="1" Margin="20, 0"/>
 
                 <HorizontalStackLayout Padding="20, 0">
-                    <Button Text="Imprimir o relatório" ImageSource="printer.png" Background="Transparent"/>
+                    <Button Text="Imprimir o relatório" ImageSource="printer.png" Background="Transparent" Command="{Binding GerarRelatorioPdfCommand}"/>
                 </HorizontalStackLayout>
 
                 <BoxView BackgroundColor="{StaticResource Gray400}" HeightRequest="1" Margin="20, 0"/>
