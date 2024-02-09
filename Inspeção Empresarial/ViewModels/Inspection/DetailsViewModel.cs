@@ -82,50 +82,87 @@ public partial class DetailsViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public void GerarRelatorioPdf()
+    public async Task GerarRelatorioPdf()
     {
-        string caminhoRelatorio = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads", $"Relatorio {companyDetails.CorporateName}");
+        string nomeBase = $"Relatorio {companyDetails.CorporateName}";
+        string extensao = ".docx";
+        string caminhoBase = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads";
+        string caminhoRelatorio = GerarNovoNomeDeArquivo(caminhoBase, nomeBase, extensao);
 
         float cmToPoints = 28.3464567f;
 
-        using (var document = DocX.Create(caminhoRelatorio))
+        var currentPage = Shell.Current.CurrentPage;
+
+        try
         {
-            document.MarginTop = 3 * cmToPoints;
-            document.MarginLeft = 3 * cmToPoints;
-            document.MarginBottom = 2 * cmToPoints;
-            document.MarginRight = 2 * cmToPoints;
-
-            AdicionarTituloABNT(document, "1. IDENTIFICAÇÃO DA EMPRESA");
-
-            Table table = document.AddTable(5, 1);
-            table.Design = TableDesign.None;
-
-            table.Rows[0].Cells[0].Paragraphs.First().Append($"NOME EMPRESARIAL: {companyDetails.CorporateName}").FontSize(12).Font("Arial");
-            table.Rows[1].Cells[0].Paragraphs.First().Append($"ENDEREÇO: {companyDetails.Address}").FontSize(12).Font("Arial");
-            table.Rows[2].Cells[0].Paragraphs.First().Append($"CNPJ: {companyDetails.CNPJ}").FontSize(12).Font("Arial");
-            table.Rows[3].Cells[0].Paragraphs.First().Append($"C.N.A.E.: {companyDetails.CNAE}").FontSize(12).Font("Arial");
-            table.Rows[4].Cells[0].Paragraphs.First().Append($"GRAU DE RISCO: {companyDetails.RiskGrade}").FontSize(12).Font("Arial");
-
-            foreach (var row in table.Rows)
+            using (var document = DocX.Create(caminhoRelatorio))
             {
-                foreach (var cell in row.Cells)
+                document.MarginTop = 3 * cmToPoints;
+                document.MarginLeft = 3 * cmToPoints;
+                document.MarginBottom = 2 * cmToPoints;
+                document.MarginRight = 2 * cmToPoints;
+
+                AdicionarTituloABNT(document, "1. IDENTIFICAÇÃO DA EMPRESA");
+
+                Table table = document.AddTable(5, 1);
+                table.Design = TableDesign.None;
+
+                table.Rows[0].Cells[0].Paragraphs.First().Append($"NOME EMPRESARIAL: {companyDetails.CorporateName}").FontSize(12).Font("Arial");
+                table.Rows[1].Cells[0].Paragraphs.First().Append($"ENDEREÇO: {companyDetails.Address}").FontSize(12).Font("Arial");
+                table.Rows[2].Cells[0].Paragraphs.First().Append($"CNPJ: {companyDetails.CNPJ}").FontSize(12).Font("Arial");
+                table.Rows[3].Cells[0].Paragraphs.First().Append($"C.N.A.E.: {companyDetails.CNAE}").FontSize(12).Font("Arial");
+                table.Rows[4].Cells[0].Paragraphs.First().Append($"GRAU DE RISCO: {companyDetails.RiskGrade}").FontSize(12).Font("Arial");
+
+                foreach (var row in table.Rows)
                 {
-                    cell.Paragraphs.First().LineSpacing = 18.0f;
+                    foreach (var cell in row.Cells)
+                    {
+                        cell.Paragraphs.First().LineSpacing = 18.0f;
+                    }
                 }
+
+                document.InsertTable(table);
+                document.InsertParagraph("");
+
+                AdicionarTituloABNT(document, "2. INTRODUÇÃO");
+                AdicionarTextoFormatadoABNT(document, companyDetails.Introduction);
+
+                AdicionarTituloABNT(document, "3. OBJETIVO");
+                AdicionarTextoFormatadoABNT(document, companyDetails.Objective);
+
+                AdicionarTituloABNT(document, "4. RESPONSABILIDADES");
+                AdicionarColecaoAoDocumento(document, Responsibilities, FormatarEAdicionarResponsibility);
+
+                AdicionarTituloABNT(document, "5. IDENTIFICAÇÃO DO ESTABELECIMENTO");
+                AdicionarColecaoAoDocumento(document, Establishments, FormatarEAdicionarEstablishment);
+
+                document.Save();
             }
-
-            document.InsertTable(table);
-            document.InsertParagraph("");
-
-            AdicionarTituloABNT(document, "2. INTRODUÇÃO");
-            AdicionarIntroducaoEObjetivoABNT(document, companyDetails.Introduction);
-
-            AdicionarTituloABNT(document, "3. OBJETIVO");
-            AdicionarIntroducaoEObjetivoABNT(document, companyDetails.Objective);
-
-            document.Save();
+            await currentPage.DisplayAlert("Sucesso",
+                $"Relatório {companyDetails.CorporateName} salvo com sucesso.", "Ok");
+        }
+        catch (Exception ex)
+        {
+            await currentPage.DisplayAlert("Erro",
+                $"Não foi possível salvar o relatório.", "Ok");
         }
     }
+
+    private string GerarNovoNomeDeArquivo(string caminhoBase, string nomeBase, string extensao)
+    {
+        int contador = 1;
+        string novoNome = nomeBase;
+        string caminhoCompleto = Path.Combine(caminhoBase, $"{novoNome}{extensao}");
+
+        while (File.Exists(caminhoCompleto))
+        {
+            novoNome = $"{nomeBase} ({contador++})";
+            caminhoCompleto = Path.Combine(caminhoBase, $"{novoNome}{extensao}");
+        }
+
+        return caminhoCompleto;
+    }
+
 
     private void AdicionarTituloABNT(DocX document, string titulo)
     {
@@ -140,16 +177,76 @@ public partial class DetailsViewModel : ObservableObject
         document.InsertParagraph("");
     }
 
-    private void AdicionarIntroducaoEObjetivoABNT(DocX document, string textoIntroducao)
+    private void AdicionarColecaoAoDocumento<T>(DocX document, IEnumerable<T> colecao, Action<DocX, T> formatarEAdicionarItem)
     {
-        var formatting = new Formatting();
-        formatting.FontFamily = new Xceed.Document.NET.Font("Arial");
-        formatting.Size = 12D;
+        foreach (var item in colecao)
+        {
+            formatarEAdicionarItem(document, item);
+        }
+    }
 
-        Paragraph paragraph = document.InsertParagraph(textoIntroducao, false, formatting);
+    private void FormatarEAdicionarResponsibility(DocX document, Responsibility responsibility)
+    {
+        AdicionarSubtituloABNT(document, "SUPERINTENDÊNCIA E DIRETORIAS VINCULADAS À UNIDADE:");
+        AdicionarTextoFormatadoABNT(document, responsibility.Superintendence);
+
+        AdicionarSubtituloABNT(document, "GERENTES:");
+        AdicionarTextoFormatadoABNT(document, responsibility.Management);
+
+        AdicionarSubtituloABNT(document, "ENCARREGADOS E LÍDERES:");
+        AdicionarTextoFormatadoABNT(document, responsibility.InCharge);
+
+        AdicionarSubtituloABNT(document, "SESMT:");
+        AdicionarTextoFormatadoABNT(document, responsibility.SMT);
+
+        AdicionarSubtituloABNT(document, "CIPA E BRIGADA DE INCÊNDIO:");
+        AdicionarTextoFormatadoABNT(document, responsibility.FireBrigade);
+
+        AdicionarSubtituloABNT(document, "EMPREGADOS:");
+        AdicionarTextoFormatadoABNT(document, responsibility.Employees);
+    }
+
+    private void FormatarEAdicionarEstablishment(DocX document, Establishment establishment)
+    {
+        var textoEstablishment = $"LOCAL: {establishment.Location}\n" +
+                                 $"ENDEREÇO: {establishment.Address}\n" +
+                                 $"TELEFONE: {establishment.Phone}";
+
+        var formatting = new Formatting
+        {
+            FontFamily = new Xceed.Document.NET.Font("Arial"),
+            Size = 12D
+        };
+
+        Paragraph paragraph = document.InsertParagraph(textoEstablishment, false, formatting);
+        document.InsertParagraph("");
+    }
+
+    private void AdicionarTextoFormatadoABNT(DocX document, string texto)
+    {
+        var formatting = new Formatting
+        {
+            FontFamily = new Xceed.Document.NET.Font("Arial"),
+            Size = 12D
+        };
+
+        Paragraph paragraph = document.InsertParagraph(texto, false, formatting);
         paragraph.Alignment = Alignment.both;
         paragraph.LineSpacing = 18.0f;
         paragraph.IndentationFirstLine = Convert.ToInt32(1.27 * 28.35);
+
+        document.InsertParagraph("");
+    }
+
+    private void AdicionarSubtituloABNT(DocX document, string subtitulo)
+    {
+        var subtitleFormat = new Formatting();
+        subtitleFormat.FontFamily = new Xceed.Document.NET.Font("Arial");
+        subtitleFormat.Size = 12D;
+        subtitleFormat.Bold = true;
+
+        Paragraph subtitleParagraph = document.InsertParagraph(subtitulo, false, subtitleFormat);
+        subtitleParagraph.Alignment = Alignment.left;
 
         document.InsertParagraph("");
     }
