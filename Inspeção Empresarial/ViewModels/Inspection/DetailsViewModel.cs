@@ -26,6 +26,9 @@ public partial class DetailsViewModel : ObservableObject
     [ObservableProperty]
     private ObservableCollection<Responsibility> responsibilities;
 
+    [ObservableProperty]
+    private ObservableCollection<ProcessDescription> processDescriptions;
+
     private readonly ICompanyRepository _companyRepository;
     public DetailsViewModel()
     {
@@ -58,6 +61,13 @@ public partial class DetailsViewModel : ObservableObject
             SMT = item.SMT,
             FireBrigade = item.FireBrigade,
             Employees = item.Employees
+        }));
+
+        ProcessDescriptions = new ObservableCollection<ProcessDescription>(
+        CompanyDetails.ProcessDescriptions.Select(item => new ProcessDescription
+        {
+            Department = item.Department,
+            Activity = item.Activity,
         }));
     }
 
@@ -135,6 +145,9 @@ public partial class DetailsViewModel : ObservableObject
 
                 AdicionarTituloABNT(document, "5. IDENTIFICAÇÃO DO ESTABELECIMENTO");
                 AdicionarColecaoAoDocumento(document, Establishments, FormatarEAdicionarEstablishment);
+
+                AdicionarTituloABNT(document, "6. DESCRIÇÃODO PROCESSO");
+                AdicionarColecaoAoDocumento(document, ProcessDescriptions, FormatarEAdicionarProcessDescription);
 
                 document.Save();
             }
@@ -218,7 +231,48 @@ public partial class DetailsViewModel : ObservableObject
             Size = 12D
         };
 
-        Paragraph paragraph = document.InsertParagraph(textoEstablishment, false, formatting);
+        Table table = document.AddTable(1, 1);
+        table.Rows[0].Cells[0].Paragraphs.First().Append(textoEstablishment, formatting);
+
+        table.SetBorder(TableBorderType.InsideH, new Xceed.Document.NET.Border(BorderStyle.Tcbs_single, BorderSize.one, 0, System.Drawing.Color.Black));
+        table.SetBorder(TableBorderType.InsideV, new Xceed.Document.NET.Border(BorderStyle.Tcbs_single, BorderSize.one, 0, System.Drawing.Color.Black));
+        table.SetBorder(TableBorderType.Bottom, new Xceed.Document.NET.Border(BorderStyle.Tcbs_single, BorderSize.one, 0, System.Drawing.Color.Black));
+        table.SetBorder(TableBorderType.Top, new Xceed.Document.NET.Border(BorderStyle.Tcbs_single, BorderSize.one, 0, System.Drawing.Color.Black));
+        table.SetBorder(TableBorderType.Left, new Xceed.Document.NET.Border(BorderStyle.Tcbs_single, BorderSize.one, 0, System.Drawing.Color.Black));
+        table.SetBorder(TableBorderType.Right, new Xceed.Document.NET.Border(BorderStyle.Tcbs_single, BorderSize.one, 0, System.Drawing.Color.Black));
+
+        document.InsertTable(table);
+
+        document.InsertParagraph("");
+    }
+
+    private void FormatarEAdicionarProcessDescription(DocX document, ProcessDescription processDescription)
+    {
+        var department = $"DEPARTAMENTO: {processDescription.Department}";
+
+        var formatting = new Formatting
+        {
+            FontFamily = new Xceed.Document.NET.Font("Arial"),
+            Size = 12D
+        };
+
+        document.InsertParagraph(department, false, formatting);
+
+        var activity = "ATIVIDADE:";
+        document.InsertParagraph(activity, false, formatting);
+
+        Table table = document.AddTable(1, 1);
+        table.Rows[0].Cells[0].Paragraphs.First().Append(processDescription.Activity, formatting);
+
+        table.SetBorder(TableBorderType.InsideH, new Xceed.Document.NET.Border(BorderStyle.Tcbs_single, BorderSize.one, 0, System.Drawing.Color.Black));
+        table.SetBorder(TableBorderType.InsideV, new Xceed.Document.NET.Border(BorderStyle.Tcbs_single, BorderSize.one, 0, System.Drawing.Color.Black));
+        table.SetBorder(TableBorderType.Bottom, new Xceed.Document.NET.Border(BorderStyle.Tcbs_single, BorderSize.one, 0, System.Drawing.Color.Black));
+        table.SetBorder(TableBorderType.Top, new Xceed.Document.NET.Border(BorderStyle.Tcbs_single, BorderSize.one, 0, System.Drawing.Color.Black));
+        table.SetBorder(TableBorderType.Left, new Xceed.Document.NET.Border(BorderStyle.Tcbs_single, BorderSize.one, 0, System.Drawing.Color.Black));
+        table.SetBorder(TableBorderType.Right, new Xceed.Document.NET.Border(BorderStyle.Tcbs_single, BorderSize.one, 0, System.Drawing.Color.Black));
+
+        document.InsertTable(table);
+
         document.InsertParagraph("");
     }
 

@@ -3,11 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inspeção Empresarial", "Inspeção Empresarial\Inspeção Empresarial.csproj", "{7845D900-F926-44B7-91E6-A60AC49B4E10}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InspecaoEmpresarial.Domain", "InspecaoEmpresarial.Domain\InspecaoEmpresarial.Domain.csproj", "{79A5E6B1-122F-499D-8563-AFB30869A9C9}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InspecaoEmpresarial.Infra.Data", "InspecaoEmpresarial.Infra.Data\InspecaoEmpresarial.Infra.Data.csproj", "{75AA81A0-8EE0-4023-97F6-C2EC95F2E945}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InspecaoEmpresarial", "Inspeção Empresarial\InspecaoEmpresarial.csproj", "{7845D900-F926-44B7-91E6-A60AC49B4E10}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InspecaoEmpresarial.Infra.Data.Migration", "InspecaoEmpresarial.Infra.Data.Migration\InspecaoEmpresarial.Infra.Data.Migration.csproj", "{8EA8107F-72BA-4DC9-BFEE-D768B07DCAA5}"
 EndProject
@@ -23,14 +19,6 @@ Global
 		{7845D900-F926-44B7-91E6-A60AC49B4E10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7845D900-F926-44B7-91E6-A60AC49B4E10}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7845D900-F926-44B7-91E6-A60AC49B4E10}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{79A5E6B1-122F-499D-8563-AFB30869A9C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{79A5E6B1-122F-499D-8563-AFB30869A9C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{79A5E6B1-122F-499D-8563-AFB30869A9C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{79A5E6B1-122F-499D-8563-AFB30869A9C9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{75AA81A0-8EE0-4023-97F6-C2EC95F2E945}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{75AA81A0-8EE0-4023-97F6-C2EC95F2E945}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{75AA81A0-8EE0-4023-97F6-C2EC95F2E945}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{75AA81A0-8EE0-4023-97F6-C2EC95F2E945}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8EA8107F-72BA-4DC9-BFEE-D768B07DCAA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8EA8107F-72BA-4DC9-BFEE-D768B07DCAA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8EA8107F-72BA-4DC9-BFEE-D768B07DCAA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
