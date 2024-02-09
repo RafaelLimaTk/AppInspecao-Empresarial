@@ -1,5 +1,4 @@
 ﻿using InspecaoEmpresarial.Domain;
-using InspecaoEmpresarial.Infra.Data;
 
 namespace Inspeção_Empresarial.Repositories;
 

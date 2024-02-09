@@ -5,7 +5,6 @@ using Inspeção_Empresarial.Libraries.Messages;
 using Inspeção_Empresarial.Repositories;
 using InspecaoEmpresarial.Domain;
 using System.Collections.ObjectModel;
-using System.Drawing;
 using Xceed.Document.NET;
 using Xceed.Words.NET;
 

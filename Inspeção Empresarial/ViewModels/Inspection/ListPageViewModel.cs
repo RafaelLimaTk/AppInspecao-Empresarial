@@ -30,7 +30,8 @@ public partial class ListPageViewModel : ObservableObject
 
         InvisibleLabel = companyListFilter.Count == 0;
 
-        WeakReferenceMessenger.Default.Register<CompanySavedMessage>(this, (r, m) => {
+        WeakReferenceMessenger.Default.Register<CompanySavedMessage>(this, (r, m) =>
+        {
             LoadCompanies();
         });
     }

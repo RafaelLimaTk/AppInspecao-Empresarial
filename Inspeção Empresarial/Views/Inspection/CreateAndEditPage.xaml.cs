@@ -1,15 +1,14 @@
 using CommunityToolkit.Maui.Views;
 using Inspeção_Empresarial.ViewModels.Inspection;
-using Microsoft.Maui.Platform;
 
 namespace Inspeção_Empresarial.Views.Inspection;
 
 public partial class CreateAndEditPage : ContentPage
 {
-	public CreateAndEditPage()
-	{
-		InitializeComponent();
-	}
+    public CreateAndEditPage()
+    {
+        InitializeComponent();
+    }
 
     private void OnFirstExpanderTapped(object sender, EventArgs e)
     {
@@ -73,11 +72,11 @@ public partial class CreateAndEditPage : ContentPage
         if (expander.IsExpanded)
         {
             content.Opacity = 0;
-            await content.FadeTo(1, 500); 
+            await content.FadeTo(1, 500);
         }
         else
         {
-            await content.FadeTo(0, 500);                                      
+            await content.FadeTo(0, 500);
         }
     }
 }

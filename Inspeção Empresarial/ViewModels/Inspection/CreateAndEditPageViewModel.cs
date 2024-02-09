@@ -6,7 +6,6 @@ using Inspeção_Empresarial.Libraries.Messages;
 using Inspeção_Empresarial.Repositories;
 using Inspeção_Empresarial.Validation;
 using InspecaoEmpresarial.Domain;
-using Microsoft.Maui.Devices.Sensors;
 using System.Collections.ObjectModel;
 
 namespace Inspeção_Empresarial.ViewModels.Inspection;
@@ -286,7 +285,7 @@ public partial class CreateAndEditPageViewModel : ObservableObject
 
     public void SaveCompanyToDatabase(Company company)
     {
-        if(company.Id == 0)
+        if (company.Id == 0)
             _companyRepository.Add(company);
         else
             _companyRepository.Update(company);
@@ -319,8 +318,8 @@ public partial class CreateAndEditPageViewModel : ObservableObject
     #region Methods ProcessResponsibility & ProcessProcessDescription
     private void ProcessResponsibility()
     {
-        var responsibility = ResponsabilityId != 0 
-            ? UpdateExistingResponsibility() 
+        var responsibility = ResponsabilityId != 0
+            ? UpdateExistingResponsibility()
             : CreateNewResponsibility();
 
         if (responsibility != null)

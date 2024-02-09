@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Maui;
 using Inspeção_Empresarial.Repositories;
-using Microsoft.Extensions.Logging;
 
 namespace Inspeção_Empresarial
 {

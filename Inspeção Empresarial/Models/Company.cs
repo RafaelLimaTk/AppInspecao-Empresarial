@@ -1,8 +1,6 @@
-﻿using System.Net;
+﻿namespace InspecaoEmpresarial.Domain;
 
-namespace InspecaoEmpresarial.Domain;
-
-public class Company 
+public class Company
 {
     public int Id { get; set; }
     public string? CorporateName { get; set; }

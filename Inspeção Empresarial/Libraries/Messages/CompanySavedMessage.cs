@@ -9,6 +9,6 @@ public class CompanySavedMessage : ValueChangedMessage<Company>
 
     public CompanySavedMessage(Company company) : base(company)
     {
-        
+
     }
 }
