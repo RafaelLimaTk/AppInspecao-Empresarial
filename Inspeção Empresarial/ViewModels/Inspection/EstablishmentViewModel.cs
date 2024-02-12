@@ -8,13 +8,13 @@ public partial class EstablishmentViewModel : ObservableObject
     public int EstablishmentId { get; set; }
 
     [ObservableProperty]
-    private string? location;
+    private string location;
 
     [ObservableProperty]
-    private string? address;
+    private string address;
 
     [ObservableProperty]
-    private string? phone;
+    private string phone;
     public int CompanyId { get; set; }
-    public Company? Company { get; set; }
+    public Company Company { get; set; }
 }

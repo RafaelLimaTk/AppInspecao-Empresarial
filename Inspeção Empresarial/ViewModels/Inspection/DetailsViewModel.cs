@@ -93,7 +93,7 @@ public partial class DetailsViewModel : ObservableObject
     [RelayCommand]
     public async Task GerarRelatorioPdf()
     {
-        string nomeBase = $"Relatorio {companyDetails.CorporateName}";
+        string nomeBase = $"Relatorio {CompanyDetails.CorporateName}";
         string extensao = ".docx";
         string caminhoBase = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads";
         string caminhoRelatorio = GerarNovoNomeDeArquivo(caminhoBase, nomeBase, extensao);
@@ -116,11 +116,11 @@ public partial class DetailsViewModel : ObservableObject
                 Table table = document.AddTable(5, 1);
                 table.Design = TableDesign.None;
 
-                table.Rows[0].Cells[0].Paragraphs.First().Append($"NOME EMPRESARIAL: {companyDetails.CorporateName}").FontSize(12).Font("Arial");
-                table.Rows[1].Cells[0].Paragraphs.First().Append($"ENDEREÇO: {companyDetails.Address}").FontSize(12).Font("Arial");
-                table.Rows[2].Cells[0].Paragraphs.First().Append($"CNPJ: {companyDetails.CNPJ}").FontSize(12).Font("Arial");
-                table.Rows[3].Cells[0].Paragraphs.First().Append($"C.N.A.E.: {companyDetails.CNAE}").FontSize(12).Font("Arial");
-                table.Rows[4].Cells[0].Paragraphs.First().Append($"GRAU DE RISCO: {companyDetails.RiskGrade}").FontSize(12).Font("Arial");
+                table.Rows[0].Cells[0].Paragraphs.First().Append($"NOME EMPRESARIAL: {CompanyDetails.CorporateName}").FontSize(12).Font("Arial");
+                table.Rows[1].Cells[0].Paragraphs.First().Append($"ENDEREÇO: {CompanyDetails.Address}").FontSize(12).Font("Arial");
+                table.Rows[2].Cells[0].Paragraphs.First().Append($"CNPJ: {CompanyDetails.CNPJ}").FontSize(12).Font("Arial");
+                table.Rows[3].Cells[0].Paragraphs.First().Append($"C.N.A.E.: {CompanyDetails.CNAE}").FontSize(12).Font("Arial");
+                table.Rows[4].Cells[0].Paragraphs.First().Append($"GRAU DE RISCO: {CompanyDetails.RiskGrade}").FontSize(12).Font("Arial");
 
                 foreach (var row in table.Rows)
                 {
@@ -134,10 +134,10 @@ public partial class DetailsViewModel : ObservableObject
                 document.InsertParagraph("");
 
                 AdicionarTituloABNT(document, "2. INTRODUÇÃO");
-                AdicionarTextoFormatadoABNT(document, companyDetails.Introduction);
+                AdicionarTextoFormatadoABNT(document, CompanyDetails.Introduction);
 
                 AdicionarTituloABNT(document, "3. OBJETIVO");
-                AdicionarTextoFormatadoABNT(document, companyDetails.Objective);
+                AdicionarTextoFormatadoABNT(document, CompanyDetails.Objective);
 
                 AdicionarTituloABNT(document, "4. RESPONSABILIDADES");
                 AdicionarColecaoAoDocumento(document, Responsibilities, FormatarEAdicionarResponsibility);
@@ -151,9 +151,9 @@ public partial class DetailsViewModel : ObservableObject
                 document.Save();
             }
             await currentPage.DisplayAlert("Sucesso",
-                $"Relatório {companyDetails.CorporateName} salvo com sucesso.", "Ok");
+                $"Relatório {CompanyDetails.CorporateName} salvo com sucesso.", "Ok");
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             await currentPage.DisplayAlert("Erro",
                 $"Não foi possível salvar o relatório.", "Ok");

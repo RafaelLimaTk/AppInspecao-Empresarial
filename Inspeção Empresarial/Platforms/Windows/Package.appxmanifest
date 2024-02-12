@@ -4,9 +4,12 @@
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
-  IgnorableNamespaces="uap rescap">
+  xmlns:uap6="http://schemas.microsoft.com/appx/manifest/uap/windows10/6"
+  xmlns:uap4="http://schemas.microsoft.com/appx/manifest/uap/windows10/4"
+  xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
+  IgnorableNamespaces="uap rescap uap6 uap4 uap3">
 
-  <Identity Name="maui-package-name-placeholder" Publisher="CN=rafam" Version="1.0.20.0" />
+  <Identity Name="inspecao-empresarial" Publisher="CN=ImspecaoEmpresarial" Version="1.0.23.0" />
 
   <mp:PhoneIdentity PhoneProductId="517BA938-7D5D-470F-97BE-5D34A39B6C05" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
@@ -35,12 +38,24 @@
         BackgroundColor="transparent">
         <uap:DefaultTile Square71x71Logo="$placeholder$.png" Wide310x150Logo="$placeholder$.png" Square310x310Logo="$placeholder$.png" />
         <uap:SplashScreen Image="$placeholder$.png" />
+        <uap:InitialRotationPreference>
+          <uap:Rotation Preference="landscape"/></uap:InitialRotationPreference>
       </uap:VisualElements>
     </Application>
   </Applications>
 
   <Capabilities>
     <rescap:Capability Name="runFullTrust" />
+    <uap:Capability Name="chat"/>
+    <uap:Capability Name="picturesLibrary"/>
+    <uap:Capability Name="musicLibrary"/>
+    <uap:Capability Name="videosLibrary"/>
+    <uap6:Capability Name="graphicsCapture"/>
+    <Capability Name="internetClientServer"/>
+    <Capability Name="internetClient"/>
+    <uap4:Capability Name="userDataTasks"/>
+    <uap3:Capability Name="remoteSystem"/>
+    <DeviceCapability Name="location"/>
   </Capabilities>
 
 </Package>

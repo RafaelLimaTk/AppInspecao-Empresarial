@@ -45,13 +45,13 @@ public partial class ListPageViewModel : ObservableObject
     [RelayCommand]
     private void SearchInspections()
     {
-        CompanyListFilter = companyListFull.Where(c => c.CorporateName.ToLower().Contains(textSearch.ToLower())).ToList();
+        CompanyListFilter = companyListFull.Where(c => c.CorporateName.ToLower().Contains(TextSearch.ToLower())).ToList();
 
         InvisibleLabel = CompanyListFilter.Count == 0;
     }
 
     [RelayCommand]
-    private async void AddCompany()
+    private async Task AddCompany()
     {
         await Shell.Current.GoToAsync("create");
     }

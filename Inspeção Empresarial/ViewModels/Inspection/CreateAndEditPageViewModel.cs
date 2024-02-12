@@ -155,7 +155,7 @@ public partial class CreateAndEditPageViewModel : ObservableObject
         }
     }
 
-    private async Task LoadCompanyEdit(string companyId)
+    private void LoadCompanyEdit(string companyId)
     {
         var companyid = int.Parse(companyId);
         Company = _companyRepository.GetById(companyid);
